@@ -1,0 +1,80 @@
+﻿<mah:MetroWindow x:Class="Audibly.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:Audibly"
+        mc:Ignorable="d"
+        Title="Audibly" Height="720" Width="1080">
+    <Grid>
+        <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
+            <mah:MetroTabItem Header="Now Playing" x:Name="_nowplayingTab">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock x:Name="txtTitle"></TextBlock>
+                    <TextBox x:Name="bookId" Visibility="Hidden"></TextBox>
+                    <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="400"></Image>
+                    <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" HorizontalAlignment="Stretch">
+
+                        <DockPanel VerticalAlignment="Center" Margin="10">
+                            <Button x:Name="btnPlay" Margin="1" Width="100" Content="Play" Click="btnPlay_Click"></Button>
+                            <Button x:Name="btnPause" Margin="1" Width="100" Content="Pause" Click="btnPause_Click" />
+                            <Slider Name="slPosition" HorizontalAlignment="Stretch" MouseLeftButtonUp="seekSlider_MouseLeftButtonUp" PreviewMouseLeftButtonDown="seekSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekSlider_PreviewMouseLeftButtonUp"/>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center" Margin="10">
+                            <Button x:Name="AddBookMark" Width="300" Content="Add a bookmark" Click="AddBookMark_Click"></Button>
+                        </DockPanel>
+                    </StackPanel>
+                </StackPanel>
+            </mah:MetroTabItem>
+            <mah:MetroTabItem Header="Book Marks" x:Name="_bookMarksTab">
+                <ListView x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Description}" Margin="2" />
+                                <TextBlock Text=":" />
+                                <TextBlock Text="{Binding Time}" Margin="2" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="bookMarksClick" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </mah:MetroTabItem>
+            <mah:MetroTabItem Header="Library" x:Name="_libraryTab">
+                <StackPanel Orientation="Vertical">
+                    <Button x:Name="AddBooks" Content="Add a Book" Width="200" ToolTip="Only M4B files are supported for now" Click="AddBooks_Click"></Button>
+                    <ListView x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Image Height="150" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill" />
+                                    <TextBlock Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+            </mah:MetroTabItem>
+        </TabControl>
+    </Grid>
+</mah:MetroWindow>
