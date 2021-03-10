@@ -39,6 +39,7 @@ namespace Audibly
             tick = new timerTick(changeStatus);
             btnPause.IsEnabled = false;
             btnPlay.IsEnabled = false;
+            _nowplayingTab.Focus();
         }
 
 		private void changeStatus()
