@@ -6,29 +6,49 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-        Title="Audibly" Height="720" Width="1080">
+        Title="Audibly" Height="750" Width="1100">
     <Grid>
         <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
             <mah:MetroTabItem Header="Now Playing" x:Name="_nowplayingTab">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock x:Name="txtTitle"></TextBlock>
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <TextBlock FontWeight="Bold" FontSize="27" x:Name="txtTitle"></TextBlock>
+                    <TextBlock FontWeight="Bold" FontSize="22" x:Name="txtDetails"></TextBlock>
                     <TextBox x:Name="bookId" Visibility="Hidden"></TextBox>
                     <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="400"></Image>
                     <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" HorizontalAlignment="Stretch">
 
                         <DockPanel VerticalAlignment="Center" Margin="10">
-                            <Button x:Name="btnPlay" Margin="1" Width="100" Content="Play" Click="btnPlay_Click"></Button>
-                            <Button x:Name="btnPause" Margin="1" Width="100" Content="Pause" Click="btnPause_Click" />
+                            <Button x:Name="btnPlay" Margin="5" Click="btnPlay_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/play.png" />
+                                </DockPanel>
+                            </Button>
+                            <Button x:Name="btnPause" Margin="5" Click="btnPause_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/pause.png" />
+                                </DockPanel>
+                            </Button>
                             <Slider Name="slPosition" HorizontalAlignment="Stretch" MouseLeftButtonUp="seekSlider_MouseLeftButtonUp" PreviewMouseLeftButtonDown="seekSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekSlider_PreviewMouseLeftButtonUp"/>
                         </DockPanel>
-                        <DockPanel VerticalAlignment="Center" Margin="10">
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                            <Button x:Name="btnRewind" Margin="5" Click="btnRewind_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/back.png" />
+                                </DockPanel>
+                            </Button>
+                            <Button x:Name="btnForward" Margin="5" Click="btnForward_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/forward.png" />
+                                </DockPanel>
+                            </Button>
                             <Button x:Name="AddBookMark" Width="300" Content="Add a bookmark" Click="AddBookMark_Click"></Button>
+                            <Label x:Name="lblError" Content="Done!" Foreground="Green"  FontSize="20" HorizontalAlignment="Center" Opacity="0"/>
                         </DockPanel>
                     </StackPanel>
                 </StackPanel>
             </mah:MetroTabItem>
             <mah:MetroTabItem Header="Book Marks" x:Name="_bookMarksTab">
-                <ListView x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <ListView Margin="10" BorderThickness="0.2" x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
@@ -38,8 +58,9 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                 <TextBlock Text="{Binding Description}" Margin="2" />
-                                <TextBlock Text=":" />
-                                <TextBlock Text="{Binding Time}" Margin="2" />
+                                <TextBlock Text=":" Margin="5" />
+                                <TextBlock FontWeight="Bold" Text="{Binding Time}" Margin="2" />
+                                <TextBox Width="1" BorderThickness="1"></TextBox>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -51,9 +72,9 @@
                 </ListView>
             </mah:MetroTabItem>
             <mah:MetroTabItem Header="Library" x:Name="_libraryTab">
-                <StackPanel Orientation="Vertical">
-                    <Button x:Name="AddBooks" Content="Add a Book" Width="200" ToolTip="Only M4B files are supported for now" Click="AddBooks_Click"></Button>
-                    <ListView x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <Button Margin="10" x:Name="AddBooks" Content="Add a Book" Width="200" ToolTip="Only M4B files are supported for now" Click="AddBooks_Click"></Button>
+                    <ListView Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="3" HorizontalAlignment="Stretch"/>
@@ -61,8 +82,8 @@
                         </ItemsControl.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <Image Height="150" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill" />
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Image Height="150" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />
                                     <TextBlock Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
                                 </StackPanel>
                             </DataTemplate>
@@ -77,4 +98,12 @@
             </mah:MetroTabItem>
         </TabControl>
     </Grid>
+    <Window.Resources>
+    <Storyboard x:Key="sbHideAnimation" >
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"  From="1" To="1" Duration="0:0:3" />
+        <!--label shows for 3 sec-->
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:5" From="1" To="0" DecelerationRatio=".5" Duration="0:0:2" />
+        <!--Fade out the label after 3 sec-->
+    </Storyboard>
+    </Window.Resources>
 </mah:MetroWindow>

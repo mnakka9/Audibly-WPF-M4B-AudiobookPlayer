@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace Audibly
@@ -39,6 +40,9 @@ namespace Audibly
             tick = new timerTick(changeStatus);
             btnPause.IsEnabled = false;
             btnPlay.IsEnabled = false;
+            btnRewind.IsEnabled = false;
+            btnForward.IsEnabled = false;
+            AddBookMark.IsEnabled = false;
             _nowplayingTab.Focus();
         }
 
@@ -115,15 +119,30 @@ namespace Audibly
                 }
                 outputDevice.Init(audioFileReader);
                 timer.Start();
-                outputDevice.Play();
                // audioFileReader.CurrentTime = TimeSpan.FromMinutes(15);
                 SliderTime = audioFileReader.CurrentTime.TotalMilliseconds;
                 slPosition.Maximum = audioFileReader.TotalTime.TotalMilliseconds;
                 coverImage.Source = book.ImageData;
                 txtTitle.Text = book.Title;
+                txtDetails.Text = $"Author: {book.Author} - Narrator: {book.Narrator}";
                 bookId.Text = book.Id.ToString();
+                DatabaseContext context = new DatabaseContext();
+                var bookMarks = context.BookMarks?.Where(i => i.BookId == book.Id)?.OrderByDescending(i => i.TimeInMS)?.ToList();
+                if (bookMarks != null && bookMarks.Count > 0)
+                {
+                    var lastBookMark = bookMarks.FirstOrDefault();
+                    var latestTime = lastBookMark?.TimeInMS;
+					if (latestTime.HasValue)
+					{
+                        audioFileReader.CurrentTime = TimeSpan.FromMilliseconds(latestTime.Value);
+					}
+                }
                 btnPause.IsEnabled = true;
+                btnRewind.IsEnabled = true;
+                btnForward.IsEnabled = true;
+                AddBookMark.IsEnabled = true;
                 LoadBookMarks(book.Id);
+                outputDevice.Play();
                 _nowplayingTab.Focus();
             }
         }
@@ -149,6 +168,12 @@ namespace Audibly
 
 		private void DisposeDevice()
 		{
+
+            if(audioFileReader != null && !string.IsNullOrEmpty(bookId.Text))
+			{
+                AddBookMarkInDB(bookId.Text);
+			}
+
             outputDevice?.Dispose();
             outputDevice = null;
             audioFileReader?.Dispose();
@@ -232,33 +257,41 @@ namespace Audibly
 
 			if (!string.IsNullOrEmpty(txtId))
 			{
-				if(Guid.TryParse(txtId, out Guid bookGuid))
-				{
-                    DatabaseContext context = new DatabaseContext();
-                    var currentBook = context.Books.Where(i => i.Id == bookGuid)?.FirstOrDefault();
+                AddBookMarkInDB(txtId);
 
-                    if(currentBook != null && audioFileReader != null)
-					{
-                        BookMark bookMark = new BookMark();
-                        bookMark.BookId = currentBook.Id;
-                        bookMark.Description = currentBook.Title;
-                        bookMark.TimeInMS = audioFileReader.CurrentTime.TotalMilliseconds - TimeSpan.FromSeconds(5).TotalMilliseconds;
-
-                        if(currentBook != null)
-						{
-                            context.BookMarks.Add(bookMark);
-
-                            context.SaveChanges();
-
-                            System.Windows.MessageBox.Show("Bookmark added!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                            LoadBookMarks(currentBook.Id);
-						}
-					}
-
-				}
-			}
+                Storyboard sb = Resources["sbHideAnimation"] as Storyboard;
+                sb.Begin(lblError);
+            }
 		}
+
+        private void AddBookMarkInDB(string txtId)
+		{
+            if (Guid.TryParse(txtId, out Guid bookGuid))
+            {
+                DatabaseContext context = new DatabaseContext();
+                var currentBook = context.Books.Where(i => i.Id == bookGuid)?.FirstOrDefault();
+
+                if (currentBook != null && audioFileReader != null)
+                {
+                    BookMark bookMark = new BookMark();
+                    bookMark.BookId = currentBook.Id;
+                    bookMark.Description = currentBook.Title;
+                    bookMark.TimeInMS = audioFileReader.CurrentTime.TotalMilliseconds - TimeSpan.FromSeconds(5).TotalMilliseconds;
+
+                    if (currentBook != null)
+                    {
+                        context.BookMarks.Add(bookMark);
+
+                        context.SaveChanges();
+
+                        //System.Windows.MessageBox.Show("Bookmark added!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        LoadBookMarks(currentBook.Id);
+                    }
+                }
+
+            }
+        }
 
         private void bookMarksClick(object sender, MouseButtonEventArgs e)
         {
@@ -273,5 +306,30 @@ namespace Audibly
 				}
             }
         }
+
+		private void btnRewind_Click(object sender, RoutedEventArgs e)
+		{
+            if (audioFileReader != null)
+            {
+                if(audioFileReader.CurrentTime.TotalSeconds >= 30)
+				{
+                    audioFileReader.CurrentTime = audioFileReader.CurrentTime - TimeSpan.FromSeconds(30);
+                }
+            }
+        }
+
+		private void btnForward_Click(object sender, RoutedEventArgs e)
+		{
+            if (audioFileReader != null)
+            {
+                audioFileReader.CurrentTime = audioFileReader.CurrentTime + TimeSpan.FromSeconds(30);
+            }
+        }
+
+		protected override void OnClosing(CancelEventArgs e)
+		{
+            this.DisposeDevice();
+			base.OnClosing(e);
+		}
 	}
 }
