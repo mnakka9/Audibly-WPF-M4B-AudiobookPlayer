@@ -17,7 +17,7 @@ namespace Audibly
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : MetroWindow, INotifyPropertyChanged
+	public partial class MainWindow : MetroWindow
     {
         private FolderBrowserDialog openFileDialog;
 
@@ -119,24 +119,24 @@ namespace Audibly
                 }
                 outputDevice.Init(audioFileReader);
                 timer.Start();
-               // audioFileReader.CurrentTime = TimeSpan.FromMinutes(15);
-                SliderTime = audioFileReader.CurrentTime.TotalMilliseconds;
+                
                 slPosition.Maximum = audioFileReader.TotalTime.TotalMilliseconds;
                 coverImage.Source = book.ImageData;
                 txtTitle.Text = book.Title;
                 txtDetails.Text = $"Author: {book.Author} - Narrator: {book.Narrator}";
                 bookId.Text = book.Id.ToString();
-                DatabaseContext context = new DatabaseContext();
-                var bookMarks = context.BookMarks?.Where(i => i.BookId == book.Id)?.OrderByDescending(i => i.TimeInMS)?.ToList();
-                if (bookMarks != null && bookMarks.Count > 0)
+
+                if (book.LastPosition > 0)
                 {
-                    var lastBookMark = bookMarks.FirstOrDefault();
-                    var latestTime = lastBookMark?.TimeInMS;
-					if (latestTime.HasValue)
+                    DatabaseContext context = new DatabaseContext();
+                    var updatedPosition = context.Books.Find(book.Id)?.LastPosition;
+                    if(updatedPosition.HasValue && updatedPosition.Value > 0)
 					{
-                        audioFileReader.CurrentTime = TimeSpan.FromMilliseconds(latestTime.Value);
-					}
-                }
+                        book.LastPosition = updatedPosition.Value;
+                        audioFileReader.CurrentTime = TimeSpan.FromMilliseconds(book.LastPosition);
+                    }
+				}
+
                 btnPause.IsEnabled = true;
                 btnRewind.IsEnabled = true;
                 btnForward.IsEnabled = true;
@@ -156,7 +156,7 @@ namespace Audibly
                 bookMarks.ForEach(b =>
                {
                    var t = TimeSpan.FromMilliseconds(b.TimeInMS);
-                   b.Time = string.Format("{0:D2}h:{1:D2}m:{2:D2}s",
+                   b.Time = string.Format("{0:D2}h : {1:D2}m : {2:D2}s",
                         t.Hours,
                         t.Minutes,
                         t.Seconds);
@@ -171,7 +171,7 @@ namespace Audibly
 
             if(audioFileReader != null && !string.IsNullOrEmpty(bookId.Text))
 			{
-                AddBookMarkInDB(bookId.Text);
+                SaveLastPostion(bookId.Text);
 			}
 
             outputDevice?.Dispose();
@@ -180,27 +180,27 @@ namespace Audibly
             audioFileReader = null;
         }
 
+        private void SaveLastPostion(string text)
+        {
+            if (Guid.TryParse(text, out Guid bookGuid))
+            {
+                DatabaseContext context = new DatabaseContext();
+                var currentBook = context.Books.Where(i => i.Id == bookGuid)?.FirstOrDefault();
+
+                if (currentBook != null && audioFileReader != null)
+                {
+                    currentBook.LastPosition = audioFileReader.CurrentTime.TotalMilliseconds;
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
 		private void slPosition_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
             if (audioFileReader != null)
             {
                 audioFileReader.CurrentTime = TimeSpan.FromMilliseconds(e.NewValue);
-            }
-        }
-
-        private double _value;
-        public double SliderTime
-        {
-            get { return _value; }
-            set { _value = value; NotifyPropertyChanged(); }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

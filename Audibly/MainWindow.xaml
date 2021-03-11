@@ -6,7 +6,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-        Title="Audibly" Height="750" Width="1100">
+        Title="Audibly" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
     <Grid>
         <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
             <mah:MetroTabItem Header="Now Playing" x:Name="_nowplayingTab">

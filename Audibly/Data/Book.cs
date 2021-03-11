@@ -24,6 +24,8 @@ namespace Audibly.Data
 
 		public string Path { get; set; }
 
+		public double LastPosition { get; set; }
+
 		public ICollection<BookMark> BookMarks { get; set; } = new ObservableCollection<BookMark>();
 		
 		public ICollection<Chapter> Chapters { get; set; } = new ObservableCollection<Chapter>();
