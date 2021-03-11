@@ -8,13 +8,21 @@
         mc:Ignorable="d"
         Title="Audibly" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
+        <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}" SelectionChanged="TabControl_SelectionChanged">
             <mah:MetroTabItem Header="Now Playing" x:Name="_nowplayingTab">
                 <StackPanel Margin="10" Orientation="Vertical">
                     <TextBlock FontWeight="Bold" FontSize="27" x:Name="txtTitle"></TextBlock>
-                    <TextBlock FontWeight="Bold" FontSize="22" x:Name="txtDetails"></TextBlock>
+                    <TextBlock FontWeight="Bold" FontSize="22" x:Name="txtAuthor"></TextBlock>
+                    <TextBlock FontWeight="Bold" FontSize="22" x:Name="txtNarrator"></TextBlock>
+                    <Label x:Name="lblInfo" Visibility="Collapsed" Content="Info" Margin="10" ToolTipService.ShowDuration="5000">
+                        <Label.ToolTip>
+                            <ToolTip Placement="Center">
+                                <TextBlock TextWrapping="Wrap" Height="350"  FontSize="22" x:Name="txtDescritption"></TextBlock>
+                            </ToolTip>
+                        </Label.ToolTip>
+                    </Label>
                     <TextBox x:Name="bookId" Visibility="Hidden"></TextBox>
-                    <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="400"></Image>
+                    <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="250"></Image>
                     <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" HorizontalAlignment="Stretch">
 
                         <DockPanel VerticalAlignment="Center" Margin="10">

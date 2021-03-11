@@ -43,7 +43,8 @@ namespace Audibly
             btnRewind.IsEnabled = false;
             btnForward.IsEnabled = false;
             AddBookMark.IsEnabled = false;
-            _nowplayingTab.Focus();
+            lblInfo.Visibility = Visibility.Hidden;
+            _libraryTab.Focus();
         }
 
 		private void changeStatus()
@@ -65,7 +66,7 @@ namespace Audibly
 				{
                     var path = openFileDialog.SelectedPath;
                     DirectoryInfo directory = new DirectoryInfo(path);
-                    var audioFile = directory.GetFiles("*.m4b")?.FirstOrDefault();
+                    var audioFile = directory.GetFiles("*.m4b")?.FirstOrDefault() ?? directory.GetFiles("*.m4a")?.FirstOrDefault();
                     var coverFile = directory.GetFiles("cover.jpg")?.FirstOrDefault();
                     coverFile = coverFile == null ? directory.GetFiles("*.jpg")?.FirstOrDefault() : coverFile;
 
@@ -77,7 +78,7 @@ namespace Audibly
                         book.Title = tagFile.Tag.Title ?? audioFile.Name;
                         book.Author = tagFile.Tag.Artists?.FirstOrDefault() ?? tagFile.Tag.AlbumArtists?.FirstOrDefault();
                         book.Narrator = tagFile.Tag.Composers?.FirstOrDefault();
-                        book.Description = tagFile.Tag.Album;
+                        book.Description = tagFile.Tag.Comment ?? string.Empty;
                         book.ImagePath = coverFile?.FullName;
                         book.Path = audioFile.FullName;
 
@@ -123,7 +124,11 @@ namespace Audibly
                 slPosition.Maximum = audioFileReader.TotalTime.TotalMilliseconds;
                 coverImage.Source = book.ImageData;
                 txtTitle.Text = book.Title;
-                txtDetails.Text = $"Author: {book.Author} - Narrator: {book.Narrator}";
+                txtAuthor.Text = $"Author: {book.Author}";
+                txtNarrator.Text = $"Narrator: {book.Narrator}";
+                txtDescritption.Text = book.Description;
+                lblInfo.Visibility = Visibility.Visible;
+                bookId.Text = string.Empty;
                 bookId.Text = book.Id.ToString();
 
                 if (book.LastPosition > 0)
@@ -162,6 +167,7 @@ namespace Audibly
                         t.Seconds);
                });
 
+                bookMarksView.ItemsSource = null;
                 bookMarksView.ItemsSource = bookMarks;
 			}
 		}
@@ -174,6 +180,7 @@ namespace Audibly
                 SaveLastPostion(bookId.Text);
 			}
 
+            bookId.Text = string.Empty;
             outputDevice?.Dispose();
             outputDevice = null;
             audioFileReader?.Dispose();
@@ -331,5 +338,21 @@ namespace Audibly
             this.DisposeDevice();
 			base.OnClosing(e);
 		}
+
+		private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+            if (e.Source is System.Windows.Controls.TabControl)
+            {
+                var tab = (System.Windows.Controls.TabControl)e.Source;
+                var selectedTab = tab.SelectedIndex;
+                if(selectedTab == 1&& !string.IsNullOrEmpty(bookId.Text))
+				{
+                    if(Guid.TryParse(bookId.Text, out Guid bookGuid))
+					{
+                        LoadBookMarks(bookGuid);
+					}
+				}
+            }
+        }
 	}
 }
