@@ -111,6 +111,7 @@ namespace Audibly
             {
                 var book = (Book)item.Content;
                 this.DisposeDevice();
+                LoadBooks();
                 if(audioFileReader == null)
 				{
                     audioFileReader = new AudioFileReader(book.Path);
