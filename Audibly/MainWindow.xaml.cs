@@ -66,7 +66,7 @@ namespace Audibly
 				{
                     var path = openFileDialog.SelectedPath;
                     DirectoryInfo directory = new DirectoryInfo(path);
-                    var audioFile = directory.GetFiles("*.m4b")?.FirstOrDefault() ?? directory.GetFiles("*.m4a")?.FirstOrDefault();
+                    var audioFile = directory.GetFiles("*.m4b")?.FirstOrDefault() ?? directory.GetFiles("*.m4a")?.FirstOrDefault() ?? directory.GetFiles("*.mp3")?.FirstOrDefault();
                     var coverFile = directory.GetFiles("cover.jpg")?.FirstOrDefault();
                     coverFile = coverFile == null ? directory.GetFiles("*.jpg")?.FirstOrDefault() : coverFile;
 
@@ -76,8 +76,10 @@ namespace Audibly
 
                         Book book = new Book();
                         book.Title = tagFile.Tag.Title ?? audioFile.Name;
-                        book.Author = tagFile.Tag.Artists?.FirstOrDefault() ?? tagFile.Tag.AlbumArtists?.FirstOrDefault();
-                        book.Narrator = tagFile.Tag.Composers?.FirstOrDefault();
+#pragma warning disable CS0618 // Type or member is obsolete
+						book.Author = tagFile.Tag.Artists?.FirstOrDefault() ?? tagFile.Tag.AlbumArtists?.FirstOrDefault();
+#pragma warning restore CS0618 // Type or member is obsolete
+						book.Narrator = tagFile.Tag.Composers?.FirstOrDefault();
                         book.Description = tagFile.Tag.Comment ?? string.Empty;
                         book.ImagePath = coverFile?.FullName;
                         book.Path = audioFile.FullName;
