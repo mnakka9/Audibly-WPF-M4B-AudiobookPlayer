@@ -6,7 +6,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-        Title="" Height="700" Width="1100" WindowStartupLocation="CenterScreen">
+        Title="" Height="650" Width="700" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid>
             <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}" SelectionChanged="TabControl_SelectionChanged">
@@ -38,7 +38,7 @@
                                 </Button>
                                 <Slider Name="slPosition" HorizontalAlignment="Stretch" MouseLeftButtonUp="seekSlider_MouseLeftButtonUp" PreviewMouseLeftButtonDown="seekSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekSlider_PreviewMouseLeftButtonUp"/>
                             </DockPanel>
-                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="80,10,20,0">
                                 <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnRestart" Margin="5" Click="btnRestart_Click">
                                     <DockPanel>
                                         <Image Height="40" Source="/Icons/skiptostart.png" />
