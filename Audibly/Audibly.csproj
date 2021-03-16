@@ -9,10 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\audio.png" />
     <None Remove="Icons\back.png" />
     <None Remove="Icons\forward.png" />
+    <None Remove="Icons\mute.png" />
     <None Remove="Icons\pause.png" />
     <None Remove="Icons\play.png" />
+    <None Remove="Icons\skiptostart.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,16 +28,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Icons\audio.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\forward.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\mute.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\skiptostart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

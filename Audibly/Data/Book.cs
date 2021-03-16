@@ -48,7 +48,7 @@ namespace Audibly.Data
 
 		public void SetImageData()
 		{
-			if (!string.IsNullOrEmpty(ImagePath))
+			if (!string.IsNullOrEmpty(ImagePath) && System.IO.File.Exists(ImagePath))
 			{
 				ImageData = new BitmapImage(new Uri(ImagePath));
 			}
