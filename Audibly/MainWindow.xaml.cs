@@ -1,17 +1,11 @@
 ﻿using Audibly.Data;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using NAudio.Wave;
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 
 namespace Audibly
 {

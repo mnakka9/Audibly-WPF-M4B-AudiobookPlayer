@@ -5,19 +5,17 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace Audibly
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class Player : MetroWindow
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class Player : MetroWindow
     {
         public AudioFileReader audioFileReader { get; set; }
         private WaveOutEvent outputDevice;
