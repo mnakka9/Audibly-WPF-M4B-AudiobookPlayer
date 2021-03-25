@@ -238,15 +238,14 @@ namespace Audibly
                     BookMark bookMark = new BookMark();
                     bookMark.BookId = currentBook.Id;
                     bookMark.Description = currentBook.Title;
-                    bookMark.TimeInMS = audioFileReader.CurrentTime.TotalMilliseconds - TimeSpan.FromSeconds(5).TotalMilliseconds;
+                    var timeInMS = audioFileReader.CurrentTime.TotalMilliseconds;
+                    bookMark.TimeInMS = timeInMS > TimeSpan.FromSeconds(2).TotalMilliseconds ?  timeInMS - TimeSpan.FromSeconds(1).TotalMilliseconds : timeInMS;
 
                     if (currentBook != null)
                     {
                         context.BookMarks.Add(bookMark);
 
                         context.SaveChanges();
-
-                        //System.Windows.MessageBox.Show("Bookmark added!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         LoadBookMarks(currentBook.Id);
                     }
