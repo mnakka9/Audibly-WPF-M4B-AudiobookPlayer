@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Audibly"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="400" WindowStartupLocation="CenterOwner">
+             Height="219" Width="386" WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
     <StackPanel Margin="20" Orientation="Vertical">
-        <TextBlock Margin="50" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" x:Name="textMessage"></TextBlock>
+        <TextBlock Margin="0,20,0,20" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" x:Name="textMessage"></TextBlock>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="10">
             <Button Background="#007bff" Foreground="White" Margin="25,0,45,0" x:Name="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Content="Ok" Click="Button_Click"></Button>
             <Button Background="Gray" Foreground="White" x:Name="Cancel" Width="120" Content="Cancel" Click="Cancel_Click"></Button>

@@ -6,7 +6,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-        Title="Edit description" Height="450" Width="800">
+        Title="Edit description" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <StackPanel Margin="20" Orientation="Vertical">
         <StackPanel Margin="10" Orientation="Vertical">
             <TextBlock Margin="0,0,0,10" Text="Enter the descrption below: "></TextBlock>
