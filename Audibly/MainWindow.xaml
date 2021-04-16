@@ -6,48 +6,65 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-        Title="Audibly" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
-    <StackPanel Margin="10" Orientation="Vertical">
-        <TextBlock Text="Library" FontSize="24" FontWeight="Bold" Foreground="#017bfe"></TextBlock>
-        <Button Background="#007bff" Foreground="White" Margin="10" x:Name="AddBooks" Content="Add a Book" Width="200" Click="AddBooks_Click"></Button>
-        <Border Background="Transparent" CornerRadius="12">
-            <ListView Height="650" Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+       Height="750" Width="1100" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+    <Border CornerRadius="20" Background="#272537">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Audibly" FontSize="28" FontWeight="Bold" Foreground="White" Grid.Row="0"></TextBlock>
+            <Button Background="#272537" Margin="2" Click="CloseBtn_Click" x:Name="CloseBtn" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Image Source="/Icons/close.png" Width="48" Height="48"></Image>
+            </Button>
+            <Button VerticalAlignment="Top" Grid.Row="1" Height="75" Background="Orange" Foreground="White" Margin="20,10,10,10" x:Name="AddBooks" Content="Add a Book" Width="150" Click="AddBooks_Click"></Button>
+            <Border Margin="5" Height="660" Background="#272537" Grid.Row="1" Grid.Column="1" CornerRadius="12">
+                <StackPanel>
+                <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="White" Text="Library" FontSize="22"></TextBlock>
+                <ListView Background="#272537" Height="650" Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="10" Height="180" Width="180" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Border Height="160" Width="180" CornerRadius="20">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="{Binding ImageData}"/>
-                                </Border.Background>
-                                <!--<Image Height="130" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />-->
-                            </Border>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10" Height="180" Width="180" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Border Height="160" Width="180" CornerRadius="20">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding ImageData}"/>
+                                        </Border.Background>
+                                        <!--<Image Height="130" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />-->
+                                    </Border>
+                                    <TextBlock Foreground="White" TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
 
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                    </Style>
-                </ListView.ItemContainerStyle>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
 
-                <ListView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Delete Book" Click="MenuItem_Click"></MenuItem>
-                    </ContextMenu>
-                </ListView.ContextMenu>
-            </ListView>
-        </Border>
-        <Label x:Name="lblInformation" Foreground="Green"  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0"/>
-    </StackPanel>
-
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Delete Book" Click="MenuItem_Click"></MenuItem>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                </StackPanel>
+            </Border>
+                <Label x:Name="lblInformation" Grid.Column="1" Grid.Row="0" Foreground="White"  FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0"/>
+        </Grid>
+    
+    </Border>
     <Window.Resources>
         <Storyboard x:Key="sbHideAnimation" >
             <DoubleAnimation Storyboard.TargetProperty="Opacity"  From="1" To="1" Duration="0:0:3" />

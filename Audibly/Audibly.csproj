@@ -12,6 +12,7 @@
     <None Remove="Icons\audio.png" />
     <None Remove="Icons\back.png" />
     <None Remove="Icons\bookmark.png" />
+    <None Remove="Icons\close.png" />
     <None Remove="Icons\forward.png" />
     <None Remove="Icons\mute.png" />
     <None Remove="Icons\pause.png" />
@@ -38,6 +39,7 @@
     <Resource Include="Icons\bookmark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icons\close.png" />
     <Resource Include="Icons\forward.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

@@ -6,93 +6,97 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-        Title="" Height="680" Width="750" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid>
-            <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}" SelectionChanged="TabControl_SelectionChanged">
-                <mah:MetroTabItem Header="Now Playing" x:Name="_nowplayingTab">
-                    <StackPanel Margin="10" Orientation="Vertical">
-                        <TextBlock FontWeight="Bold" FontSize="22" x:Name="txtTitle"></TextBlock>
-                        <TextBlock FontWeight="Bold" FontSize="18" x:Name="txtAuthor"></TextBlock>
-                        <TextBlock FontWeight="Bold" FontSize="18" x:Name="txtNarrator"></TextBlock>
-                        <Label x:Name="lblInfo" Visibility="Collapsed" Content="Info" Margin="10" ToolTipService.ShowDuration="5000">
-                            <Label.ToolTip>
-                                <ToolTip Placement="Center">
-                                    <TextBlock TextWrapping="Wrap" Height="200" Width="300"  FontSize="18" x:Name="txtDescritption"></TextBlock>
-                                </ToolTip>
-                            </Label.ToolTip>
-                        </Label>
-                        <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="250"></Image>
-                        <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" HorizontalAlignment="Stretch">
+        Title="" Height="680" Width="750" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="#272537">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1" Background="#272537" CornerRadius="20" >
+        <TabControl Foreground="White" Background="#272537" Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}" SelectionChanged="TabControl_SelectionChanged">
+            <mah:MetroTabItem Header="Now Playing" x:Name="_nowplayingTab">
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <TextBlock Foreground="White" FontWeight="Bold" FontSize="22" x:Name="txtTitle"></TextBlock>
+                    <TextBlock Foreground="White" FontWeight="Bold" FontSize="18" x:Name="txtAuthor"></TextBlock>
+                    <TextBlock Foreground="White" FontWeight="Bold" FontSize="18" x:Name="txtNarrator"></TextBlock>
+                    <Label Foreground="White" x:Name="lblInfo" Visibility="Collapsed" Content="Info" Margin="10" ToolTipService.ShowDuration="5000">
+                        <Label.ToolTip>
+                                <ToolTip Background="#272537" Placement="Center">
+                                <TextBlock Foreground="White" TextWrapping="Wrap" Height="200" Width="300"  FontSize="18" x:Name="txtDescritption"></TextBlock>
+                            </ToolTip>
+                        </Label.ToolTip>
+                    </Label>
+                    <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="250"></Image>
+                    <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" HorizontalAlignment="Stretch">
 
-                            <DockPanel VerticalAlignment="Center" Margin="10">
-                                <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnPlay" Margin="5" Click="btnPlay_Click">
-                                    <DockPanel>
-                                        <Image Height="40" Source="/Icons/play.png" />
-                                    </DockPanel>
-                                </Button>
-                                <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnPause" Margin="5" Click="btnPause_Click">
-                                    <DockPanel>
-                                        <Image Height="40" Source="/Icons/pause.png" />
-                                    </DockPanel>
-                                </Button>
-                                <Slider Name="slPosition" HorizontalAlignment="Stretch" MouseLeftButtonUp="seekSlider_MouseLeftButtonUp" PreviewMouseLeftButtonDown="seekSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekSlider_PreviewMouseLeftButtonUp"/>
-                            </DockPanel>
-                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,20,0">
-                                <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnRestart" Margin="5" Click="btnRestart_Click">
-                                    <DockPanel>
-                                        <Image Height="40" Source="/Icons/skiptostart.png" />
-                                    </DockPanel>
-                                </Button>
-                                <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnRewind" Margin="5" Click="btnRewind_Click">
-                                    <DockPanel>
-                                        <Image Height="40" Source="/Icons/back.png" />
-                                    </DockPanel>
-                                </Button>
-                                <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnForward" Margin="5" Click="btnForward_Click">
-                                    <DockPanel>
-                                        <Image Height="40" Source="/Icons/forward.png" />
-                                    </DockPanel>
-                                </Button>
-                                <Button  BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="AddBookMark" Margin="5" Click="AddBookMark_Click">
-                                    <DockPanel>
-                                      <Image Height="40" Source="/Icons/bookmark.png" />
-                                    </DockPanel>
-                                </Button>
-                            </DockPanel>
-                            <Label x:Name="lblError" Content="Added the bookmark!" Foreground="Green"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Opacity="0"/>
-                        </StackPanel>
+                        <DockPanel VerticalAlignment="Center" Margin="10">
+                            <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnPlay" Margin="5" Click="btnPlay_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/play.png" />
+                                </DockPanel>
+                            </Button>
+                            <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnPause" Margin="5" Click="btnPause_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/pause.png" />
+                                </DockPanel>
+                            </Button>
+                            <Slider Name="slPosition" HorizontalAlignment="Stretch" MouseLeftButtonUp="seekSlider_MouseLeftButtonUp" PreviewMouseLeftButtonDown="seekSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekSlider_PreviewMouseLeftButtonUp"/>
+                        </DockPanel>
+                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,20,0">
+                            <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnRestart" Margin="5" Click="btnRestart_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/skiptostart.png" />
+                                </DockPanel>
+                            </Button>
+                            <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnRewind" Margin="5" Click="btnRewind_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/back.png" />
+                                </DockPanel>
+                            </Button>
+                            <Button BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="btnForward" Margin="5" Click="btnForward_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/forward.png" />
+                                </DockPanel>
+                            </Button>
+                            <Button  BorderBrush="Transparent" BorderThickness="0" Background="Transparent" x:Name="AddBookMark" Margin="5" Click="AddBookMark_Click">
+                                <DockPanel>
+                                    <Image Height="40" Source="/Icons/bookmark.png" />
+                                </DockPanel>
+                            </Button>
+                        </DockPanel>
+                        <Label x:Name="lblError" Content="Added the bookmark!" Foreground="Green"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Opacity="0"/>
                     </StackPanel>
-                </mah:MetroTabItem>
-                <mah:MetroTabItem Header="Book Marks" x:Name="_bookMarksTab">
-                    <ListView Margin="20" x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <TextBlock Margin="2" FontWeight="Bold" FontSize="16" Text="{Binding Time}" ToolTip="{Binding Description}" />
-                                    <Line Stroke="Black"></Line>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="bookMarksClick" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Edit description" Click="MenuItem_Click"></MenuItem>
-                            </ContextMenu>
-                        </ListView.ContextMenu>
-                    </ListView>
-                </mah:MetroTabItem>
-            </TabControl>
-        </Grid>
+                </StackPanel>
+            </mah:MetroTabItem>
+            <mah:MetroTabItem Header="Book Marks" x:Name="_bookMarksTab">
+                <ListView Margin="20" x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <TextBlock Margin="2" FontWeight="Bold" FontSize="16" Text="{Binding Time}" ToolTip="{Binding Description}" />
+                                <Line Stroke="Black"></Line>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="bookMarksClick" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Edit description" Click="MenuItem_Click"></MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
+            </mah:MetroTabItem>
+        </TabControl>
+    </Border>
     </Grid>
     <Window.Resources>
         <Storyboard x:Key="sbHideAnimation" >
