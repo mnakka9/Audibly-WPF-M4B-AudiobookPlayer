@@ -52,6 +52,10 @@ namespace Audibly.Data
 			{
 				ImageData = new BitmapImage(new Uri(ImagePath));
 			}
+			else
+			{
+				ImageData = new BitmapImage(new Uri("https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-1-CRC.png"));
+			}
 		}
 	}
 

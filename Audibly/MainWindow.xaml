@@ -7,50 +7,47 @@
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
         Title="Audibly" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
-            <mah:MetroTabItem Header="Library" x:Name="_libraryTab">
-                <StackPanel Margin="10" Orientation="Vertical">
-                    <Button Background="#007bff" Foreground="White" Margin="10" x:Name="AddBooks" Content="Add a Book" Width="200" Click="AddBooks_Click"></Button>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
-                        <ListView Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+    <StackPanel Margin="10" Orientation="Vertical">
+        <TextBlock Text="Library" FontSize="24" FontWeight="Bold" Foreground="#017bfe"></TextBlock>
+        <Button Background="#007bff" Foreground="White" Margin="10" x:Name="AddBooks" Content="Add a Book" Width="200" Click="AddBooks_Click"></Button>
+        <Border Background="Transparent" CornerRadius="12">
+            <ListView Height="650" Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="5" HorizontalAlignment="Center" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10" Height="180" Width="180" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Border Height="160" Width="180" CornerRadius="20">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding ImageData}"/>
+                                </Border.Background>
+                                <!--<Image Height="130" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />-->
+                            </Border>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
 
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" >
-                                        <StackPanel Height="180" Width="180" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                            <Image Height="150" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />
-                                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            
-                            <ListView.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Delete Book" Click="MenuItem_Click"></MenuItem>
-                                </ContextMenu>
-                            </ListView.ContextMenu>
-                        </ListView>
-                    </ScrollViewer>
-                    <Label x:Name="lblInformation" Foreground="Green"  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0"/>
-               </StackPanel>
-            </mah:MetroTabItem>
-        </TabControl>
-    </Grid>
-    
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Delete Book" Click="MenuItem_Click"></MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+        </Border>
+        <Label x:Name="lblInformation" Foreground="Green"  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0"/>
+    </StackPanel>
+
     <Window.Resources>
         <Storyboard x:Key="sbHideAnimation" >
             <DoubleAnimation Storyboard.TargetProperty="Opacity"  From="1" To="1" Duration="0:0:3" />
