@@ -6,15 +6,17 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-        Title="Edit description" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <StackPanel Margin="20" Orientation="Vertical">
-        <StackPanel Margin="10" Orientation="Vertical">
-            <TextBlock Margin="0,0,0,10" Text="Enter the descrption below: "></TextBlock>
-            <RichTextBox x:Name="txtDescBM" Height="250"></RichTextBox>
+        ResizeMode="NoResize" WindowStyle="None" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Border Background="#272537" CornerRadius="20">
+        <StackPanel Background="#272537" Margin="20" Orientation="Vertical">
+            <StackPanel Background="#272537" Margin="10" Orientation="Vertical">
+                <TextBlock Foreground="White" FontSize="18" Margin="0,0,0,10" Text="Enter the descrption below: "></TextBlock>
+                <RichTextBox Margin="0,10,0,5" Background="#272537" Foreground="White" x:Name="txtDescBM" Height="250"></RichTextBox>
+            </StackPanel>
+            <StackPanel Background="#272537" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+                <Button Background="#007bff" Foreground="White" Width="80" Click="btnSave_Click" Margin="5" x:Name="btnSave" Content="Save"></Button>
+                <Button Background="Gray" Foreground="White"  Width="80" Click="btnCancel_Click" Margin="5" x:Name="btnCancel" Content="Cancel"></Button>
+            </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
-            <Button Background="#007bff" Foreground="White" Width="80" Click="btnSave_Click" Margin="5" x:Name="btnSave" Content="Save"></Button>
-            <Button Background="Gray" Foreground="White"  Width="80" Click="btnCancel_Click" Margin="5" x:Name="btnCancel" Content="Cancel"></Button>
-        </StackPanel>
-    </StackPanel>
+    </Border>
 </mah:MetroWindow>

@@ -138,7 +138,17 @@ namespace Audibly
                 if (book != null && book.Path?.Length > 0)
                 {
                     var messageBox = new MessageBox("Warning", $"Do you want to delete {book.Title} from Library", book);
-					if (messageBox.ShowDialog().HasValue)
+                    var returnVal = messageBox.ShowDialog();
+
+
+                    var isBookRemoved = false;
+
+                    using(DatabaseContext context = new DatabaseContext())
+					{
+                        isBookRemoved = !context.Books.Any(b => b.Id == book.Id);
+					}
+
+                    if (returnVal.HasValue && isBookRemoved)
 					{
                         Storyboard sb = Resources["sbHideAnimation"] as Storyboard;
                         lblInformation.Content = "Book deleted from Library!";

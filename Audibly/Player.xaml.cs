@@ -15,7 +15,7 @@ namespace Audibly
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class Player : MetroWindow
+	public partial class Player : Window
     {
         public AudioFileReader audioFileReader { get; set; }
         private WaveOutEvent outputDevice;
