@@ -7,42 +7,34 @@
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
         Height="680" Width="750" WindowStyle="None" Background="Transparent" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Border BorderBrush="#272537" CornerRadius="20">
-        <Grid Background="#272537">
+    <Border Background="Transparent" BorderBrush="#efebe9" CornerRadius="20">
+        <Grid Background="#efebe9">
             <Grid.RowDefinitions>
+                <RowDefinition Height="55" />
                 <RowDefinition />
-                <RowDefinition Height="35" />
             </Grid.RowDefinitions>
-            <Button Width="40" Background="#272537" BorderThickness="0" Margin="5" Click="CloseBtn_Click" x:Name="CloseBtn" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Border BorderBrush="#272537" BorderThickness="0">
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#272537" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
+            <Label Margin="5" Foreground="#2196f3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Player" FontSize="22" FontWeight="Bold"></Label>
+            <Button Background="Transparent" BorderThickness="0" Margin="5" Click="CloseBtn_Click" x:Name="CloseBtn" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Border BorderBrush="Transparent"  BorderThickness="0">
                     <Image Source="/Icons/close.png"></Image>
                 </Border>
             </Button>
-            <Label x:Name="lblError" Grid.Row="1" Content="Added the bookmark!" Foreground="White"  FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0"/>
-            <Border Grid.Row="0" Background="#272537" CornerRadius="20" >
-                <TabControl Foreground="White" Background="#272537" Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}" SelectionChanged="TabControl_SelectionChanged">
+            <Label x:Name="lblError" Grid.Row="0" Content="Added the bookmark!" Foreground="#2196f3"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Opacity="0"/>
+            <Border Grid.Row="1" Background="#efebe9" CornerRadius="20" >
+                <TabControl Foreground="#2196f3" Background="#efebe9" Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}" SelectionChanged="TabControl_SelectionChanged">
                     <mah:MetroTabItem Header="Now Playing" x:Name="_nowplayingTab">
                         <StackPanel Margin="10" Orientation="Vertical">
-                            <TextBlock Foreground="White" FontWeight="Bold" FontSize="22" x:Name="txtTitle"></TextBlock>
-                            <TextBlock Foreground="White" FontWeight="Bold" FontSize="18" x:Name="txtAuthor"></TextBlock>
-                            <TextBlock Foreground="White" FontWeight="Bold" FontSize="18" x:Name="txtNarrator"></TextBlock>
-                            <Label Foreground="White" x:Name="lblInfo" Visibility="Collapsed" Content="Info" Margin="10" ToolTipService.ShowDuration="5000">
+                            <TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="22" x:Name="txtTitle"></TextBlock>
+                            <TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="18" x:Name="txtAuthor"></TextBlock>
+                            <TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="18" x:Name="txtNarrator"></TextBlock>
+                            <Label Foreground="#2196f3" x:Name="lblInfo" Visibility="Collapsed" Content="Info" Margin="10" ToolTipService.ShowDuration="5000">
                                 <Label.ToolTip>
-                                    <ToolTip Background="#272537" Placement="Center">
-                                        <TextBlock Foreground="White" TextWrapping="Wrap" Height="200" Width="300"  FontSize="18" x:Name="txtDescritption"></TextBlock>
+                                    <ToolTip Background="#efebe9" Placement="Center">
+                                        <TextBlock Foreground="#2196f3" TextWrapping="Wrap" Height="200" Width="300"  FontSize="18" x:Name="txtDescritption"></TextBlock>
                                     </ToolTip>
                                 </Label.ToolTip>
                             </Label>
-                            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="150"></Image>
+                            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="200"></Image>
                             <StackPanel VerticalAlignment="Bottom" Orientation="Vertical" HorizontalAlignment="Stretch">
 
                                 <DockPanel VerticalAlignment="Center" Margin="10">
@@ -83,8 +75,8 @@
                             </StackPanel>
                         </StackPanel>
                     </mah:MetroTabItem>
-                    <mah:MetroTabItem Background="#272537" Foreground="White" Header="Book Marks" x:Name="_bookMarksTab">
-                        <ListView Background="#272537" Foreground="White" Margin="20" x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <mah:MetroTabItem Background="#efebe9" Foreground="#2196f3" Header="Bookmarks" x:Name="_bookMarksTab">
+                        <ListView Background="#efebe9" Foreground="#2196f3" Margin="20" x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
@@ -105,7 +97,7 @@
                             </ListView.ItemContainerStyle>
                             <ListView.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Background="#272537" Foreground="White" Header="Edit description" Click="MenuItem_Click"></MenuItem>
+                                    <MenuItem Background="#efebe9" Foreground="#2196f3" Header="Edit description" Click="MenuItem_Click"></MenuItem>
                                 </ContextMenu>
                             </ListView.ContextMenu>
                         </ListView>

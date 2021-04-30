@@ -14,9 +14,11 @@
     <None Remove="Icons\bookmark.png" />
     <None Remove="Icons\close.png" />
     <None Remove="Icons\forward.png" />
+    <None Remove="Icons\main.png" />
     <None Remove="Icons\mute.png" />
     <None Remove="Icons\pause.png" />
     <None Remove="Icons\play.png" />
+    <None Remove="Icons\playerback.png" />
     <None Remove="Icons\skiptostart.png" />
   </ItemGroup>
 
@@ -43,6 +45,7 @@
     <Resource Include="Icons\forward.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icons\main.png" />
     <Resource Include="Icons\mute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -52,6 +55,7 @@
     <Resource Include="Icons\play.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icons\playerback.png" />
     <Resource Include="Icons\skiptostart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
