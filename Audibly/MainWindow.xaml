@@ -6,11 +6,8 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-       Height="750" Width="1100" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+       Height="750" Width="1100" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Border CornerRadius="20">
-        <Border.Background>
-            <ImageBrush Opacity="0.5" ImageSource="/Icons/main.png"></ImageBrush>
-        </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
@@ -21,19 +18,14 @@
                 <RowDefinition />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
-            <TextBlock Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Audibly" FontSize="28" FontWeight="Bold" Foreground="White" Grid.Row="0"></TextBlock>
-            <Button Background="Transparent" BorderThickness="0" Margin="5" Click="CloseBtn_Click" x:Name="CloseBtn" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Border BorderBrush="Transparent"  BorderThickness="0">
-                    <Image Source="/Icons/close.png"></Image>
-                </Border>
-            </Button>
-            <Button Background="MediumSeaGreen" VerticalAlignment="Top" Grid.Row="1" Height="50" Foreground="White" Margin="20,20,10,10" x:Name="AddBooks" Width="150" Click="AddBooks_Click">
-                <Border BorderBrush="MediumSeaGreen" BorderThickness="0">
+            <TextBlock Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Audibly" FontSize="28" FontWeight="Bold" Foreground="DarkBlue" Grid.Row="0"></TextBlock>
+            <Button Background="Gray" VerticalAlignment="Top" Grid.Row="1" Height="50" Foreground="Black" Margin="20,20,10,10" x:Name="AddBooks" Width="150" Click="AddBooks_Click">
+                <Border BorderBrush="Gray" BorderThickness="0">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="MediumSeaGreen" />
+                                    <Setter Property="Background" Value="Gray" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -50,10 +42,10 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Border Margin="5" Height="660" Background="Transparent" Grid.Row="1" Grid.Column="1" CornerRadius="12">
+            <Border Margin="5" Height="560" Background="Transparent" Grid.Row="1" Grid.Column="1" CornerRadius="12">
                 <StackPanel>
-                <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="White" Text="Library" FontSize="22"></TextBlock>
-                <ListView Background="Transparent" Height="650" Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="Black" Text="Library" FontSize="22"></TextBlock>
+                <ListView Background="Transparent" Height="550" Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Center" />
@@ -69,7 +61,7 @@
                                         </Border.Background>
                                         <!--<Image Height="130" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />-->
                                     </Border>
-                                    <TextBlock Foreground="White" TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                    <TextBlock Foreground="Black" TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -82,15 +74,15 @@
 
                         <ListView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Background="#272537" Foreground="White" Header="Delete Book" Click="MenuItem_Click"></MenuItem>
+                                <MenuItem Background="#272537" Foreground="Black" Header="Delete Book" Click="MenuItem_Click"></MenuItem>
                             </ContextMenu>
                         </ListView.ContextMenu>
                     </ListView>
                 </StackPanel>
             </Border>
-                <Label x:Name="lblInformation" Grid.Column="1" Grid.Row="0" Foreground="White"  FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0"/>
+                <Label x:Name="lblInformation" Grid.Column="1" Grid.Row="0" Foreground="Black"  FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0"/>
         </Grid>
-    
+
     </Border>
     <Window.Resources>
         <Storyboard x:Key="sbHideAnimation" >
