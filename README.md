@@ -13,12 +13,14 @@ Audibly is a desktop audiobook player written in WPF .NET core
 
 ## Play Audio book- Play/Pause implemented, Seek implemented, 30 seconds backward/forward & start from beginning
 
-![image](https://user-images.githubusercontent.com/26427477/116720221-906dd500-a9f9-11eb-87a5-506276e22aa1.png)
+![image](https://user-images.githubusercontent.com/26427477/123800677-2c876000-d907-11eb-948e-2f741735bf55.png)
  
-## Add book marks, will be shown in Book mark tab.
-## Edit Description of Bookmark.
+## Add book marks, will be shown in Bookmarks tab.
+![image](https://user-images.githubusercontent.com/26427477/123800757-40cb5d00-d907-11eb-9d0f-45a13b25d4d2.png)
 
-![image](https://user-images.githubusercontent.com/26427477/116720303-a54a6880-a9f9-11eb-8087-01400b9425cd.png)
+## Edit Description of Bookmark & delete
+![image](https://user-images.githubusercontent.com/26427477/123800907-635d7600-d907-11eb-8a5a-c3bc97c26141.png)
+
 
 
 ## To-Do List
