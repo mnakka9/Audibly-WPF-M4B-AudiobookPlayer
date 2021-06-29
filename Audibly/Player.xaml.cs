@@ -1,5 +1,4 @@
 ﻿using Audibly.Data;
-using MahApps.Metro.Controls;
 using NAudio.Wave;
 using System;
 using System.ComponentModel;
@@ -12,10 +11,10 @@ using System.Windows.Threading;
 
 namespace Audibly
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class Player : Window
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class Player : Window
     {
         public AudioFileReader audioFileReader { get; set; }
         private WaveOutEvent outputDevice;
@@ -43,10 +42,10 @@ namespace Audibly
         }
 
         public void SetCurrentBook(Book book)
-		{
+        {
             this.currentBook = book;
             LoadBookAndPlay();
-		}
+        }
 
         private void changeStatus()
         {
@@ -61,7 +60,7 @@ namespace Audibly
 
         private void LoadBookAndPlay()
         {
-            
+
             if (this.currentBook != null && File.Exists(this.currentBook.Path))
             {
                 var book = this.currentBook;
@@ -183,15 +182,15 @@ namespace Audibly
         }
 
         bool isDragging = false;
-        //seek to desirable position of the file   
-        //you will also have to set the moveToPosition property of the seekSlider to    
-        //true   
+        //seek to desirable position of the file
+        //you will also have to set the moveToPosition property of the seekSlider to
+        //true
         private void seekSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             changePostion(slPosition.Value);
         }
 
-        //mouse down on slide bar in order to seek   
+        //mouse down on slide bar in order to seek
         private void seekSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             isDragging = true;
@@ -206,7 +205,7 @@ namespace Audibly
             isDragging = false;
         }
 
-        //change position of the file   
+        //change position of the file
         void changePostion(double time)
         {
             if (time > 0 && audioFileReader != null)
@@ -239,7 +238,7 @@ namespace Audibly
                     bookMark.BookId = currentBook.Id;
                     bookMark.Description = currentBook.Title;
                     var timeInMS = audioFileReader.CurrentTime.TotalMilliseconds;
-                    bookMark.TimeInMS = timeInMS > TimeSpan.FromSeconds(2).TotalMilliseconds ?  timeInMS - TimeSpan.FromSeconds(1).TotalMilliseconds : timeInMS;
+                    bookMark.TimeInMS = timeInMS > TimeSpan.FromSeconds(2).TotalMilliseconds ? timeInMS - TimeSpan.FromSeconds(1).TotalMilliseconds : timeInMS;
 
                     if (currentBook != null)
                     {
@@ -306,16 +305,16 @@ namespace Audibly
             }
         }
 
-		private void btnRestart_Click(object sender, RoutedEventArgs e)
-		{
-            if(audioFileReader != null)
-			{
+        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        {
+            if (audioFileReader != null)
+            {
                 audioFileReader.CurrentTime = TimeSpan.FromSeconds(0);
-			}
-		}
+            }
+        }
 
-		private void MenuItem_Click(object sender, RoutedEventArgs e)
-		{
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
             var item = bookMarksView.SelectedItem;
             if (item != null)
             {
@@ -325,15 +324,33 @@ namespace Audibly
                 {
                     var window = new BookmarkEditWindow();
                     window.SetBookmark(bookmark);
-					window.Closed += (object sender, EventArgs e) => LoadBookMarks(currentBook.Id);
+                    window.Closed += (object sender, EventArgs e) => LoadBookMarks(currentBook.Id);
                     window.ShowDialog();
                 }
             }
         }
 
-		private void CloseBtn_Click(object sender, RoutedEventArgs e)
-		{
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
             this.Close();
-		}
-	}
+        }
+
+        private void DeleteBookmark_Click(object sender, RoutedEventArgs e)
+        {
+            var item = bookMarksView.SelectedItem;
+            if (item != null)
+            {
+                var bookmark = (BookMark)item;
+
+                if (bookmark != null && bookmark.TimeInMS > 0)
+                {
+                    using DatabaseContext context = new DatabaseContext();
+                    context.BookMarks.Remove(bookmark);
+                    context.SaveChanges();
+
+                    LoadBookMarks(bookmark.BookId);
+                }
+            }
+        }
+    }
 }

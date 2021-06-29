@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Audibly.Data
 {
-	public class DatabaseContext : DbContext
-	{
+    public class DatabaseContext : DbContext
+    {
         public DbSet<Book> Books { get; set; }
         public DbSet<BookMark> BookMarks { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
@@ -15,7 +12,7 @@ namespace Audibly.Data
             DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(
-                "Data Source=books.db");
+                "Data Source=books.sqlite");
             base.OnConfiguring(optionsBuilder);
         }
     }
