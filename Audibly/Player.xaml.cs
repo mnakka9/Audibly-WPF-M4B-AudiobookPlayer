@@ -38,7 +38,6 @@ namespace Audibly
             btnRewind.IsEnabled = false;
             btnForward.IsEnabled = false;
             AddBookMark.IsEnabled = false;
-            lblInfo.Visibility = Visibility.Hidden;
         }
 
         public void SetCurrentBook(Book book)
@@ -80,11 +79,10 @@ namespace Audibly
 
                 slPosition.Maximum = audioFileReader.TotalTime.TotalMilliseconds;
                 coverImage.Source = book.ImageData;
+                coverImage.ToolTip = book.Description;
                 txtTitle.Text = book.Title;
                 txtAuthor.Text = $"Author: {book.Author}";
                 txtNarrator.Text = $"Narrator: {book.Narrator}";
-                txtDescritption.Text = book.Description;
-                lblInfo.Visibility = Visibility.Visible;
 
                 if (book.LastPosition > 0)
                 {

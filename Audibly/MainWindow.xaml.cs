@@ -1,5 +1,4 @@
 ﻿using Audibly.Data;
-using MahApps.Metro.Controls;
 using System;
 using System.IO;
 using System.Linq;

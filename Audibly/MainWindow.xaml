@@ -3,93 +3,85 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Audibly"
         mc:Ignorable="d"
-       Height="750" Width="1100" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="20">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="75" />
-                <RowDefinition />
-                <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-            <TextBlock Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Audibly" FontSize="28" FontWeight="Bold" Foreground="DarkBlue" Grid.Row="0"></TextBlock>
-            <Button Background="Gray" VerticalAlignment="Top" Grid.Row="1" Height="50" Foreground="Black" Margin="20,20,10,10" x:Name="AddBooks" Width="150" Click="AddBooks_Click">
-                <Border BorderBrush="Gray" BorderThickness="0">
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Gray" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <TextBlock Text="Add a book" Foreground="White" FontSize="20"></TextBlock>
-                </Border>
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="MediumSeaGreen"></Setter>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Border Margin="5" Height="560" Background="Transparent" Grid.Row="1" Grid.Column="1" CornerRadius="12">
-                <StackPanel>
-                <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="Black" Text="Library" FontSize="22"></TextBlock>
-                <ListView Background="Transparent" Height="550" Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+		TextElement.FontWeight="Regular"
+		TextElement.FontSize="13"
+		TextOptions.TextFormattingMode="Ideal"
+		TextOptions.TextRenderingMode="Auto"
+		Background="{DynamicResource MaterialDesignPaper}"
+		FontFamily="{DynamicResource MaterialDesignFont}"
+		WindowStyle="None" WindowState="Normal" WindowStartupLocation="CenterScreen">
+	<materialDesign:Card UniformCornerRadius="20">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="200"></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="75" />
+				<RowDefinition />
+				<RowDefinition Height="50" />
+			</Grid.RowDefinitions>
+			<TextBlock Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Audibly" FontSize="36" FontWeight="Bold" Foreground="DarkBlue" Grid.Row="0"></TextBlock>
+			<Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="20"
+					x:Name="appClose" Click="CloseBtn_Click" Margin="5,5,5,5" MinHeight="50" Grid.Row="0" Grid.Column="1">
+				<materialDesign:PackIcon Kind="LocationExit" Width="40" Height="40" />
+			</Button>
+			<Button VerticalAlignment="Top" Grid.Row="1" Height="50" Margin="20,20,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        materialDesign:ButtonAssist.CornerRadius="10" x:Name="AddBooks" Width="150" Click="AddBooks_Click">
+				<TextBlock Text="Add a book" Foreground="White" FontSize="20"></TextBlock>
+			</Button>
+			<materialDesign:Card UniformCornerRadius="20" Margin="5" Height="560" Background="Transparent" Grid.Row="1" Grid.Column="1">
+				<StackPanel>
+					<TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="Black" Text="Library" FontSize="22"></TextBlock>
+					<ListView Background="Transparent" Height="550" Margin="10" x:Name="TvBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
 
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="10" Height="180" Width="180" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Border Height="160" Width="180" CornerRadius="20">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding ImageData}"/>
-                                        </Border.Background>
-                                        <!--<Image Height="130" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />-->
-                                    </Border>
-                                    <TextBlock Foreground="Black" TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<materialDesign:Card Margin="10" UniformCornerRadius="20">
+									<StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
 
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
+										<Image Source="{Binding ImageData}"/>
+										<!--<Image Height="130" Width="150" Source="{Binding ImageData}" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" />-->
+										<TextBlock Foreground="Black" TextWrapping="WrapWithOverflow" Text="{Binding Title}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+									</StackPanel>
+								</materialDesign:Card>
 
-                        <ListView.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Background="#272537" Foreground="Black" Header="Delete Book" Click="MenuItem_Click"></MenuItem>
-                            </ContextMenu>
-                        </ListView.ContextMenu>
-                    </ListView>
-                </StackPanel>
-            </Border>
-                <Label x:Name="lblInformation" Grid.Column="1" Grid.Row="0" Foreground="Black"  FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0"/>
-        </Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
 
-    </Border>
-    <Window.Resources>
-        <Storyboard x:Key="sbHideAnimation" >
-            <DoubleAnimation Storyboard.TargetProperty="Opacity"  From="1" To="1" Duration="0:0:3" />
-            <!--label shows for 3 sec-->
-            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:3" From="1" To="0" DecelerationRatio=".5" Duration="0:0:2" />
-            <!--Fade out the label after 3 sec-->
-        </Storyboard>
-    </Window.Resources>
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+							</Style>
+						</ListView.ItemContainerStyle>
+
+						<ListView.ContextMenu>
+							<ContextMenu>
+								<MenuItem Background="#272537" Foreground="Black" Header="Delete Book" Click="MenuItem_Click"></MenuItem>
+							</ContextMenu>
+						</ListView.ContextMenu>
+					</ListView>
+				</StackPanel>
+			</materialDesign:Card>
+			<Label x:Name="lblInformation" Grid.Column="1" Grid.Row="0" Foreground="Black"  FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0"/>
+		</Grid>
+
+	</materialDesign:Card>
+	<Window.Resources>
+		<Storyboard x:Key="sbHideAnimation" >
+			<DoubleAnimation Storyboard.TargetProperty="Opacity"  From="1" To="1" Duration="0:0:3" />
+			<!--label shows for 3 sec-->
+			<DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:3" From="1" To="0" DecelerationRatio=".5" Duration="0:0:2" />
+			<!--Fade out the label after 3 sec-->
+		</Storyboard>
+	</Window.Resources>
 </Window>

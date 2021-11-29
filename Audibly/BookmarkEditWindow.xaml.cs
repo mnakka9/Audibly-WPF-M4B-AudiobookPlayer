@@ -1,5 +1,4 @@
 ﻿using Audibly.Data;
-using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace Audibly
 	/// <summary>
 	/// Interaction logic for BookmarkEditWindow.xaml
 	/// </summary>
-	public partial class BookmarkEditWindow : MetroWindow
+	public partial class BookmarkEditWindow : Window
 	{
 		private BookMark _bookmark;
 
