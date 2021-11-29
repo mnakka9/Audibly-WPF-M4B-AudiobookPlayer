@@ -123,6 +123,10 @@ namespace Audibly
                 bookMarksView.ItemsSource = null;
                 bookMarksView.ItemsSource = bookMarks;
             }
+			else
+			{
+                bookMarksView.ItemsSource = null;
+            }
         }
 
         private void DisposeDevice()

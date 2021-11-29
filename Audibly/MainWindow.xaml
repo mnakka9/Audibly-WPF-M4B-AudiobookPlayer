@@ -66,7 +66,7 @@
 
 						<ListView.ContextMenu>
 							<ContextMenu>
-								<MenuItem Background="#272537" Foreground="Black" Header="Delete Book" Click="MenuItem_Click"></MenuItem>
+								<MenuItem Style="{StaticResource MaterialDesignMenuItem}" Header="Delete Book" Click="MenuItem_Click"></MenuItem>
 							</ContextMenu>
 						</ListView.ContextMenu>
 					</ListView>
