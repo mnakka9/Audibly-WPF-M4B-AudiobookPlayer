@@ -19,7 +19,6 @@ namespace Audibly
         public MainWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
             this.DataContext = this;
             openFileDialog = new FolderBrowserDialog();
             LoadBooks();
