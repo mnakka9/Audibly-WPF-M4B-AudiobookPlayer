@@ -8,19 +8,18 @@ Audibly is a desktop audiobook player written in WPF .NET core
 ## Features
 
 ## Import M4B folders as books in library - Folder should contain Cover.jpg/ *.jpg (works as cover image) and a single M4B/M4A/MP3 audio book file
+![image](https://github.com/mnakka9/Audibly-WPF-M4B-AudiobookPlayer/assets/26427477/0bffbb03-02d3-4a20-bc89-8f454da4a077)
 
-![1](https://user-images.githubusercontent.com/26427477/143881663-4772f1ce-e366-4f74-86ff-a026d7f9cc6c.png)
-
-![image](https://user-images.githubusercontent.com/26427477/116720067-674d4480-a9f9-11eb-87e0-52445d41f5aa.png)
+![image](https://github.com/mnakka9/Audibly-WPF-M4B-AudiobookPlayer/assets/26427477/198b64f8-517b-4600-bb36-b28e1474b4f5)
 
 ## Play Audio book- Play/Pause implemented, Seek implemented, 30 seconds backward/forward & start from beginnig also done.
 
-![2](https://user-images.githubusercontent.com/26427477/143881725-38d2e1c7-f5f5-4972-b577-4644d604ed12.png)
-
+![image](https://github.com/mnakka9/Audibly-WPF-M4B-AudiobookPlayer/assets/26427477/d4b0a8ad-854c-473e-b43a-74c33d7f88a5)
  
 ## Add bookmarks, will be shown in Bookmarks tab.
 
-![3](https://user-images.githubusercontent.com/26427477/143881806-4eb48f1e-0dab-4483-92b6-b688dc1586bf.png)
+![image](https://github.com/mnakka9/Audibly-WPF-M4B-AudiobookPlayer/assets/26427477/986ed422-cb0b-4985-9ddf-121c6b482886)
+
 
 ## Edit Description of Bookmark & delete bookmark features are added
 
