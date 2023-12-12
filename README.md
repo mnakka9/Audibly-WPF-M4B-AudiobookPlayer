@@ -23,15 +23,13 @@ Audibly is a desktop audiobook player written in WPF .NET core
 
 ## Edit Description of Bookmark & delete bookmark features are added
 
-
-
 ## To-Do List
 - Add a timer # Next in line
 - Clean and improve the code # will do later
 
 ## Completed
 - Bookmarks delete features / Change edit description page design # DONE
-- Material design #done
+- WPF UI Fluent design #done
 
 ## Not interested
 - Support for folders with multiple files
