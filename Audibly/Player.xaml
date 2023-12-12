@@ -1,106 +1,83 @@
-﻿<Window x:Class="Audibly.Player"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Audibly"
-        mc:Ignorable="d"
-        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-		TextElement.FontWeight="Regular"
-		TextElement.FontSize="13"
-		TextOptions.TextFormattingMode="Ideal"
-		TextOptions.TextRenderingMode="Auto"
-		Background="{DynamicResource MaterialDesignPaper}"
-		FontFamily="{DynamicResource MaterialDesignFont}" Width="600" Height="600">
-	<materialDesign:Card UniformCornerRadius="20" MaxHeight="580">
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="55" />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<materialDesign:Card UniformCornerRadius="5" Grid.Row="0" Margin="3">
-				<StackPanel MinWidth="570" MaxHeight="55" MinHeight="55" Orientation="Horizontal">
-					<Label Margin="5" Foreground="#FF6B1CBD" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Player" FontSize="27" FontWeight="Bold"></Label>
-					<Label Margin="50,0,0,0" x:Name="lblError" Grid.Row="0" Content="Added the bookmark!" Foreground="#2196f3"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Opacity="0"/>
-					<Button Margin="180,5,5,5" MinHeight="40" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="20" Click="CloseBtn_Click" x:Name="CloseBtn" HorizontalAlignment="Right" VerticalAlignment="Center">
-						<materialDesign:PackIcon Kind="LocationExit" VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Width="32"
-                            Height="32"/>
-					</Button>
-				</StackPanel>
-			</materialDesign:Card>
+﻿<ui:UiWindow x:Class="Audibly.Player"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:Audibly"
+		mc:Ignorable="d"
+		Background="Transparent"
+		WindowStartupLocation="CenterOwner"
+		xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+		Width="600" Height="600">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="55" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" MinWidth="570" MaxHeight="55" MinHeight="55" Orientation="Horizontal">
+				<Label Margin="5" Foreground="#FF6B1CBD" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Player" FontSize="27" FontWeight="Bold"></Label>
+				<Label Margin="50,0,0,0" x:Name="lblError" Grid.Row="0" Content="Added the bookmark!" Foreground="#2196f3"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Opacity="0"></Label>
+			</StackPanel>
 
-			<materialDesign:Card Grid.Row="1" UniformCornerRadius="10" >
-				<TabControl Foreground="#2196f3" Style="{StaticResource MaterialDesignTabControl}" SelectionChanged="TabControl_SelectionChanged">
-					<TabItem Header="Now Playing" x:Name="_nowplayingTab">
-						<StackPanel Margin="10" Orientation="Vertical" MaxHeight="570">
-							<TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="22" x:Name="txtTitle"></TextBlock>
-							<TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="18" x:Name="txtAuthor"></TextBlock>
-							<TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="18" x:Name="txtNarrator"></TextBlock>
-							<Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="200">
-							</Image>
-							<StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" MinHeight="150">
-								<DockPanel VerticalAlignment="Center" MinHeight="60" Margin="10">
-									<Button x:Name="btnPlay" Margin="5" MinHeight="50"  Click="btnPlay_Click">
-										<materialDesign:PackIcon Width="32" Height="32"  Kind="Play" />
-									</Button>
-									<Button MinHeight="50" x:Name="btnPause" Margin="5" Click="btnPause_Click">
-										<materialDesign:PackIcon Width="32" Height="32"  Kind="Pause" />
-									</Button>
-									<Slider MinHeight="50" Name="slPosition" HorizontalAlignment="Stretch" MouseLeftButtonUp="seekSlider_MouseLeftButtonUp" PreviewMouseLeftButtonDown="seekSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekSlider_PreviewMouseLeftButtonUp"/>
-								</DockPanel>
-								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MinHeight="100" MinWidth="200" VerticalAlignment="Center">
-									<Button MaxWidth="80" MinHeight="50" x:Name="btnRestart" Margin="5" Click="btnRestart_Click">
-										<materialDesign:PackIcon Width="32" Height="32"  Kind="Restart" />
-									</Button>
-									<Button MaxWidth="80" MinHeight="50" x:Name="btnRewind" Margin="5" Click="btnRewind_Click">
-										<materialDesign:PackIcon Width="32" Height="32"  Kind="FastForward30" />
-									</Button>
-									<Button MaxWidth="80" MinHeight="50" x:Name="btnForward" Margin="5" Click="btnForward_Click">
-										<materialDesign:PackIcon Width="32" Height="32"  Kind="Rewind30" />
-									</Button>
-									<Button MaxWidth="80" MinHeight="50" x:Name="AddBookMark" Margin="5" Click="AddBookMark_Click">
-										<materialDesign:PackIcon Width="32" Height="32"  Kind="BookmarkCheckOutline" />
-									</Button>
-								</StackPanel>
-							</StackPanel>
+		<TabControl Background="Transparent" Grid.Row="1" Foreground="#2196f3" SelectionChanged="TabControl_SelectionChanged">
+			<TabItem Background="Transparent" Header="Now Playing" x:Name="_nowplayingTab">
+				<StackPanel Margin="10" Orientation="Vertical" MaxHeight="570">
+					<TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="22" x:Name="txtTitle"></TextBlock>
+					<TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="18" x:Name="txtAuthor"></TextBlock>
+					<TextBlock Foreground="#2196f3" FontWeight="Bold" FontSize="18" x:Name="txtNarrator"></TextBlock>
+					<Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="coverImage" Height="200">
+					</Image>
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" MinHeight="150">
+						<DockPanel VerticalAlignment="Center" MinHeight="60" Margin="10">
+							<ui:Button Appearance="Primary" Icon="Play32" x:Name="btnPlay" Margin="5" MinHeight="50"  Click="btnPlay_Click">
+							</ui:Button>
+							<ui:Button Appearance="Primary" Icon="Pause32" MinHeight="50" x:Name="btnPause" Margin="5" Click="btnPause_Click">
+							</ui:Button>
+							<Slider MinHeight="50" Name="slPosition" HorizontalAlignment="Stretch" MouseLeftButtonUp="seekSlider_MouseLeftButtonUp" PreviewMouseLeftButtonDown="seekSlider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekSlider_PreviewMouseLeftButtonUp"/>
+						</DockPanel>
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MinHeight="100" MinWidth="200" VerticalAlignment="Center">
+							<ui:Button Appearance="Primary" Icon="Fingerprint24" MaxWidth="80" MinHeight="50" x:Name="btnRestart" Margin="5" Click="btnRestart_Click">
+							</ui:Button>
+							<ui:Button Appearance="Primary" Icon="Rewind28" MaxWidth="80" MinHeight="50" x:Name="btnRewind" Margin="5" Click="btnRewind_Click">
+							</ui:Button>
+							<ui:Button Appearance="Primary" Icon="FastForward28" MaxWidth="80" MinHeight="50" x:Name="btnForward" Margin="5" Click="btnForward_Click">
+							</ui:Button>
+							<ui:Button Appearance="Primary" Icon="Bookmark32" MaxWidth="80" MinHeight="50" x:Name="AddBookMark" Margin="5" Click="AddBookMark_Click">
+							</ui:Button>
 						</StackPanel>
-					</TabItem>
-					<TabItem Background="White" Foreground="#2196f3" Header="Bookmarks" x:Name="_bookMarksTab">
-						<ListView Background="White" Foreground="#2196f3" Margin="20" x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-							<ItemsControl.ItemsPanel>
-								<ItemsPanelTemplate>
-									<StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
-								</ItemsPanelTemplate>
-							</ItemsControl.ItemsPanel>
-							<ListView.ItemTemplate>
-								<DataTemplate>
-									<StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-										<TextBlock Margin="2" FontWeight="Bold" FontSize="16" Text="{Binding Time}" ToolTip="{Binding Description}" />
-										<Line Stroke="Black"></Line>
-									</StackPanel>
-								</DataTemplate>
-							</ListView.ItemTemplate>
-							<ListView.ItemContainerStyle>
-								<Style TargetType="ListViewItem">
-									<EventSetter Event="PreviewMouseLeftButtonDown" Handler="bookMarksClick" />
-								</Style>
-							</ListView.ItemContainerStyle>
-							<ListView.ContextMenu>
-								<ContextMenu>
-									<MenuItem Style="{StaticResource MaterialDesignMenuItem}"  Header="Edit description" Click="MenuItem_Click"></MenuItem>
-									<MenuItem Style="{StaticResource MaterialDesignMenuItem}"  x:Name="DeleteBookmark" Header="Delete Bookmark" Click="DeleteBookmark_Click"></MenuItem>
-								</ContextMenu>
-							</ListView.ContextMenu>
-						</ListView>
-					</TabItem>
-				</TabControl>
-			</materialDesign:Card>
-		</Grid>
-	</materialDesign:Card>
+					</StackPanel>
+				</StackPanel>
+			</TabItem>
+			<TabItem Background="Transparent" Foreground="#2196f3" Header="Bookmarks" x:Name="_bookMarksTab">
+				<ListView Background="Transparent" Foreground="#2196f3" Margin="20" x:Name="bookMarksView" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+								<TextBlock Margin="2" FontWeight="Bold" FontSize="16" Text="{Binding Time}" ToolTip="{Binding Description}" />
+								<Line Stroke="Black"></Line>
+							</StackPanel>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+					<ListView.ItemContainerStyle>
+						<Style TargetType="ListViewItem">
+							<EventSetter Event="PreviewMouseLeftButtonDown" Handler="bookMarksClick" />
+						</Style>
+					</ListView.ItemContainerStyle>
+					<ListView.ContextMenu>
+						<ContextMenu>
+							<MenuItem Header="Edit description" Click="MenuItem_Click"></MenuItem>
+							<MenuItem x:Name="DeleteBookmark" Header="Delete Bookmark" Click="DeleteBookmark_Click"></MenuItem>
+						</ContextMenu>
+					</ListView.ContextMenu>
+				</ListView>
+			</TabItem>
+		</TabControl>
+	</Grid>
 	<Window.Resources>
 		<Storyboard x:Key="sbHideAnimation" >
 			<DoubleAnimation Storyboard.TargetProperty="Opacity"  From="1" To="1" Duration="0:0:2" />
@@ -109,4 +86,4 @@
 			<!--Fade out the label after 3 sec-->
 		</Storyboard>
 	</Window.Resources>
-</Window>
+</ui:UiWindow>

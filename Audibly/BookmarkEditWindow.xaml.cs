@@ -1,33 +1,24 @@
-﻿using Audibly.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
+using Audibly.Data;
 
 namespace Audibly
 {
-	/// <summary>
-	/// Interaction logic for BookmarkEditWindow.xaml
-	/// </summary>
-	public partial class BookmarkEditWindow : Window
+    /// <summary>
+    /// Interaction logic for BookmarkEditWindow.xaml
+    /// </summary>
+    public partial class BookmarkEditWindow : Window
 	{
 		private BookMark _bookmark;
 
 		public BookmarkEditWindow()
 		{
 			InitializeComponent();
-		}
+            Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark, Wpf.Ui.Appearance.BackgroundType.Acrylic, true, true);
+        }
 
-		public void SetBookmark(BookMark bookMark)
+        public void SetBookmark(BookMark bookMark)
 		{
 			_bookmark = bookMark;
 
@@ -49,12 +40,12 @@ namespace Audibly
 				context.SaveChanges();
 			}
 
-			this.Close();
+			Close();
 		}
 
 		private void btnCancel_Click(object sender, RoutedEventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 	}
 }

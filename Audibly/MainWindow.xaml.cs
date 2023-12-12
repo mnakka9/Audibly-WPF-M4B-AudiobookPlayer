@@ -1,12 +1,14 @@
-﻿using AudibleSearch;
-using Audibly.Data;
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+
+using Audibly.AudibleSearch;
+using Audibly.Data;
 
 namespace Audibly
 {
@@ -20,8 +22,13 @@ namespace Audibly
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
             openFileDialog = new FolderBrowserDialog();
+            Wpf.Ui.Appearance.Theme.Apply(
+              Wpf.Ui.Appearance.ThemeType.Light,     // Theme type
+              Wpf.Ui.Appearance.BackgroundType.Acrylic, // Background type
+              true                                   // Whether to change accents automatically
+            );
             LoadBooks();
         }
 
@@ -52,49 +59,44 @@ namespace Audibly
                     {
                         var tagFile = TagLib.File.Create(audioFile.FullName);
 
-                        Book book = new Book();
-                        book.Title = tagFile.Tag.Title ?? audioFile.Name;
-#pragma warning disable CS0618 // Type or member is obsolete
-                        book.Author = tagFile.Tag.Artists?.FirstOrDefault() ?? tagFile.Tag.AlbumArtists?.FirstOrDefault();
-#pragma warning restore CS0618 // Type or member is obsolete
-                        book.Narrator = tagFile.Tag.Composers?.FirstOrDefault();
-                        book.Description = tagFile.Tag.Comment ?? string.Empty;
-                        book.ImagePath = coverFile?.FullName;
-                        book.Path = audioFile.FullName;
-
-                        var service = new SearchAudible();
-                        var audiobook = service.SearchAudiobookInAudible(book.Title, book.Author, false);
-
-                        if (audiobook != null)
+                        Book book = new Book
                         {
-                            book.ImagePath = audiobook.Url;
-                            book.Description = audiobook.Description;
-                            book.Title = audiobook.Title;
-                            book.Narrator = audiobook.Narrator;
-                            book.Author = audiobook.Author;
-                        }
+                            Title = tagFile.Tag.Title ?? audioFile.Name,
+#pragma warning disable CS0618 // Type or member is obsolete
+                            Author = tagFile.Tag.Artists?.FirstOrDefault() ?? tagFile.Tag.AlbumArtists?.FirstOrDefault(),
+#pragma warning restore CS0618 // Type or member is obsolete
+                            Narrator = tagFile.Tag.Composers?.FirstOrDefault(),
+                            Description = tagFile.Tag.Comment ?? string.Empty,
+                            ImagePath = coverFile?.FullName,
+                            Path = audioFile.FullName
+                        };
 
-                        DatabaseContext context = new DatabaseContext();
+                        DatabaseContext context = new();
                         if (!context.Books.Any(b => b.Path == book.Path))
                         {
                             context.Books.Add(book);
                             context.SaveChanges();
                             Storyboard sb = Resources["sbHideAnimation"] as Storyboard;
                             lblInformation.Content = "Book added to Library!";
-                            sb.Begin(lblInformation);
+                            sb!.Begin(lblInformation);
+
+                            BackgroundWorker worker = new();
+                            worker.DoWork += Worker_DoWork;
+                            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                            worker.RunWorkerAsync(book);
                         }
                         else
                         {
                             Storyboard sb = Resources["sbHideAnimation"] as Storyboard;
                             lblInformation.Content = "Already added to Library!";
-                            sb.Begin(lblInformation);
+                            sb!.Begin(lblInformation);
                         }
                     }
                     else
                     {
                         Storyboard sb = Resources["sbHideAnimation"] as Storyboard;
                         lblInformation.Content = "Folder doesn't contain a single M4B or M4A/ MP3 file!";
-                        sb.Begin(lblInformation);
+                        sb!.Begin(lblInformation);
                     }
 
                 }
@@ -103,9 +105,20 @@ namespace Audibly
             LoadBooks();
         }
 
+        private void Worker_RunWorkerCompleted (object? sender, RunWorkerCompletedEventArgs e)
+        {
+            LoadBooks();
+        }
+
+        private async void Worker_DoWork (object? sender, DoWorkEventArgs e)
+        {
+            var book = (Book)e.Argument!;
+            await UpdateBookInfo.UpdateBookInfoFromAudible(book!).ConfigureAwait(false);
+        }
+
         private void LoadBooks()
         {
-            DatabaseContext context = new DatabaseContext();
+            DatabaseContext context = new();
             context.Books.ToList().ForEach(book =>
             {
                 if (!File.Exists(book.Path))
@@ -123,15 +136,17 @@ namespace Audibly
 
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var item = sender as System.Windows.Controls.ListViewItem;
-            if (item != null)
+            if (sender is System.Windows.Controls.ListViewItem item)
             {
                 var book = (Book)item.Content;
 
-                Player player = new Player();
-                player.Title = book.Title;
+                Player player = new()
+                {
+                    Title = book.Title
+                };
+
                 player.SetCurrentBook(book);
-                player.Closed += Player_Closed;
+                player.Closed += Player_Closed!;
                 player.ShowDialog();
             }
         }
@@ -165,7 +180,7 @@ namespace Audibly
                     {
                         Storyboard sb = Resources["sbHideAnimation"] as Storyboard;
                         lblInformation.Content = "Book deleted from Library!";
-                        sb.Begin(lblInformation);
+                        sb!.Begin(lblInformation);
                         LoadBooks();
                     }
                 }
@@ -174,7 +189,7 @@ namespace Audibly
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

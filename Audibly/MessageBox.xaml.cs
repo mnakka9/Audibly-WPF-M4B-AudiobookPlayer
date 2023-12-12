@@ -1,36 +1,27 @@
-﻿using Audibly.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+
+using Audibly.Data;
+
+using Wpf.Ui.Controls;
 
 namespace Audibly
 {
-	/// <summary>
-	/// Interaction logic for MessageBox.xaml
-	/// </summary>
-	public partial class MessageBox : Window
+    /// <summary>
+    /// Interaction logic for MessageBox.xaml
+    /// </summary>
+    public partial class MessageBox : UiWindow
 	{
 		private Book book;
 
 		public MessageBox()
 		{
 			InitializeComponent();
+			Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark, Wpf.Ui.Appearance.BackgroundType.Acrylic, true, true);
 		}
 
 		public MessageBox(string title, string Message, Book _book)
 		{
-			this.Title = title;
+			Title = title;
 			InitializeComponent();
 			textMessage.Text = Message;
 			book = _book;
@@ -43,13 +34,13 @@ namespace Audibly
 				DatabaseContext context = new DatabaseContext();
 				context.Books.Remove(book);
 				context.SaveChanges();
-				this.Close();
+				Close();
 			}
 		}
 
 		private void Cancel_Click(object sender, RoutedEventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 	}
 }

@@ -1,6 +1,4 @@
-﻿using Audibly.Data;
-using NAudio.Wave;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -9,12 +7,18 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
+using Audibly.Data;
+
+using NAudio.Wave;
+
+using Wpf.Ui.Controls;
+
 namespace Audibly
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Player : Window
+    public partial class Player : UiWindow
     {
         public AudioFileReader audioFileReader { get; set; }
         private WaveOutEvent outputDevice;
@@ -28,7 +32,13 @@ namespace Audibly
         public Player()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
+
+            Wpf.Ui.Appearance.Theme.Apply(
+               Wpf.Ui.Appearance.ThemeType.Dark,     // Theme type
+               Wpf.Ui.Appearance.BackgroundType.Acrylic, // Background type
+               true                                   // Whether to change accents automatically
+             );
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += new EventHandler(timer_Tick);
@@ -42,7 +52,7 @@ namespace Audibly
 
         public void SetCurrentBook(Book book)
         {
-            this.currentBook = book;
+            currentBook = book;
             LoadBookAndPlay();
         }
 
@@ -60,10 +70,10 @@ namespace Audibly
         private void LoadBookAndPlay()
         {
 
-            if (this.currentBook != null && File.Exists(this.currentBook.Path))
+            if (currentBook != null && File.Exists(currentBook.Path))
             {
-                var book = this.currentBook;
-                this.DisposeDevice();
+                var book = currentBook;
+                DisposeDevice();
                 if (audioFileReader == null)
                 {
                     audioFileReader = new AudioFileReader(book.Path);
@@ -111,15 +121,6 @@ namespace Audibly
             var bookMarks = context.BookMarks?.Where(i => i.BookId == id)?.OrderBy(i => i.TimeInMS)?.ToList();
             if (bookMarks != null && bookMarks.Count > 0)
             {
-                bookMarks.ForEach(b =>
-                {
-                    var t = TimeSpan.FromMilliseconds(b.TimeInMS);
-                    b.Time = string.Format("{0:D2}h : {1:D2}m : {2:D2}s",
-                         t.Hours,
-                         t.Minutes,
-                         t.Seconds);
-                });
-
                 bookMarksView.ItemsSource = null;
                 bookMarksView.ItemsSource = bookMarks;
             }
@@ -145,9 +146,9 @@ namespace Audibly
 
         private void SaveLastPostion()
         {
-            if (this.currentBook != null)
+            if (currentBook != null)
             {
-                var _book = this.currentBook;
+                var _book = currentBook;
                 DatabaseContext context = new DatabaseContext();
                 var _currentBook = context.Books.Where(i => i.Id == _book.Id)?.FirstOrDefault();
 
@@ -222,14 +223,16 @@ namespace Audibly
             {
                 AddBookMarkInDB();
 
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 Storyboard sb = Resources["sbHideAnimation"] as Storyboard;
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                 sb.Begin(lblError);
             }
         }
 
         private void AddBookMarkInDB()
         {
-            if (this.currentBook != null)
+            if (currentBook != null)
             {
                 DatabaseContext context = new DatabaseContext();
                 var currentBook = context.Books.Where(i => i.Id == this.currentBook.Id)?.FirstOrDefault();
@@ -288,9 +291,9 @@ namespace Audibly
             }
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing (CancelEventArgs e)
         {
-            this.DisposeDevice();
+            DisposeDevice();
             base.OnClosing(e);
         }
 
@@ -330,11 +333,6 @@ namespace Audibly
                     window.ShowDialog();
                 }
             }
-        }
-
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
         private void DeleteBookmark_Click(object sender, RoutedEventArgs e)

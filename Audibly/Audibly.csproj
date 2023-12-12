@@ -1,79 +1,71 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<OutputType>WinExe</OutputType>
-	<TargetFramework>net6.0-windows</TargetFramework>
-	<UseWPF>true</UseWPF>
-	<ApplicationIcon>19155028.ico</ApplicationIcon>
-	<Platforms>AnyCPU;x64</Platforms>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>19155028.ico</ApplicationIcon>
+		<Platforms>AnyCPU;x64</Platforms>
+		<Nullable>Enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-	<None Remove="Icons\audio.png" />
-	<None Remove="Icons\back.png" />
-	<None Remove="Icons\bookmark.png" />
-	<None Remove="Icons\close.png" />
-	<None Remove="Icons\forward.png" />
-	<None Remove="Icons\main.png" />
-	<None Remove="Icons\mute.png" />
-	<None Remove="Icons\pause.png" />
-	<None Remove="Icons\play.png" />
-	<None Remove="Icons\playerback.png" />
-	<None Remove="Icons\skiptostart.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Icons\audio.png" />
+		<None Remove="Icons\back.png" />
+		<None Remove="Icons\bookmark.png" />
+		<None Remove="Icons\close.png" />
+		<None Remove="Icons\forward.png" />
+		<None Remove="Icons\main.png" />
+		<None Remove="Icons\mute.png" />
+		<None Remove="Icons\pause.png" />
+		<None Remove="Icons\play.png" />
+		<None Remove="Icons\playerback.png" />
+		<None Remove="Icons\skiptostart.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-	  <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
-	  <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
-	<PackageReference Include="NAudio" Version="2.0.1" />
-	<PackageReference Include="taglib-sharp-netstandard2.0" Version="2.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+		<PackageReference Include="NAudio" Version="2.2.1" />
+		<PackageReference Include="taglib-sharp-netstandard2.0" Version="2.1.0" />
+		<PackageReference Include="WPF-UI" Version="2.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-	<Reference Include="AudibleSearch">
-	  <HintPath>Reference\AudibleSearch.dll</HintPath>
-	</Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-	<Resource Include="Icons\audio.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-	<Resource Include="Icons\back.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-	<Resource Include="Icons\bookmark.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-	<Resource Include="Icons\close.png" />
-	<Resource Include="Icons\forward.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-	<Resource Include="Icons\main.png" />
-	<Resource Include="Icons\mute.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-	<Resource Include="Icons\pause.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-	<Resource Include="Icons\play.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-	<Resource Include="Icons\playerback.png" />
-	<Resource Include="Icons\skiptostart.png">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-	<None Update="Reference\AudibleSearch.dll">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</None>
-	<None Update="Reference\AudibleSearch.pdb">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</None>
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Icons\audio.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Icons\back.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Icons\bookmark.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Icons\close.png" />
+		<Resource Include="Icons\forward.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Icons\main.png" />
+		<Resource Include="Icons\mute.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Icons\pause.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Icons\play.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Icons\playerback.png" />
+		<Resource Include="Icons\skiptostart.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 
 </Project>
